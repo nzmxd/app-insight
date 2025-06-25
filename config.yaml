@@ -1,0 +1,123 @@
+# system configuration
+system:
+  env: local # 修改为public可以关闭路由日志输出
+  addr: 8888
+  db-type: mysql
+  oss-type: minio
+  use-redis: true # 使用redis
+  use-multipoint: false
+  #  路由全局前缀
+  router-prefix: ""
+  #  严格角色模式 打开后权限将会存在上下级关系
+  use-strict-auth: false
+
+# redis configuration
+redis:
+  #是否使用redis集群模式
+  useCluster: false
+  #使用集群模式addr和db默认无效
+  addr: 192.168.5.149:6379
+  password: ""
+  db: 0
+
+# mysql connect configuration
+# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
+mysql:
+  prefix: ""
+  port: "3306"
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db-name: app_insight
+  username: root
+  password: "1q2w3e!@#"
+  path: 192.168.5.149
+  engine: ""
+  log-mode: error
+  max-idle-conns: 10
+  max-open-conns: 100
+  singular: false
+  log-zap: false
+
+clickhouse:
+  port: "9000"
+  db-name: "default"
+  username: "default"
+  password: ""
+  path: "192.168.5.149"
+
+db-list:
+  - disable: false # 是否禁用
+    type: mysql
+    alias-name: appranko
+    prefix: ""
+    port: "3786"
+    config: charset=utf8mb4&parseTime=True&loc=Local
+    db-name: apprank
+    username: apprank
+    password: KEpk%YoW#@R239l
+    path: 192.168.5.44
+    engine: ""
+    log-mode: error
+    max-idle-conns: 5
+    max-open-conns: 10
+    singular: false
+    log-zap: false
+
+  - disable: false # 是否禁用
+    type: mysql
+    alias-name: apprank
+    prefix: ""
+    port: "3306"
+    config: charset=utf8mb4&parseTime=True&loc=Local
+    db-name: app_insight
+    username: root
+    password: "1q2w3e!@#"
+    path: 192.168.5.149
+    engine: ""
+    log-mode: error
+    max-idle-conns: 5
+    max-open-conns: 10
+    singular: false
+    log-zap: false
+
+  - disable: false # 是否禁用
+    type: mysql
+    alias-name: sp_raw
+    prefix: ""
+    port: "3306"
+    config: charset=utf8mb4&parseTime=True&loc=Local
+    db-name: sp_raw
+    username: socialpeta
+    password: "zfQzygWcs321"
+    path: 192.168.5.44
+    engine: ""
+    log-mode: error
+    max-idle-conns: 5
+    max-open-conns: 10
+    singular: false
+    log-zap: false
+
+# minio oss configuration
+minio:
+  endpoint: 192.168.5.149:8092
+  access-key-id: Dm0noJHoljUKw3JkBgiQ
+  access-key-secret: MDmbYVBdiK9E5X4gE9U7BSW4eOgJsALTJAp2ciJs
+  bucket-name: app-installs
+  use-ssl: false
+  base-path: ""
+  bucket-url: http://192.168.5.149:8092/app-installs
+
+# disk usage configuration
+disk-list:
+  - mount-point: "/"
+
+# zap logger configuration
+zap:
+  level: info
+  format: console
+  prefix: "[AppDownloader] "
+  director: log
+  show-line: true
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  log-in-console: true
+  retention-day: -1

@@ -1,0 +1,15 @@
+[Unit]
+Description=APP下载扫描及广告位推送服务
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/go/src/git.zingfront.cn/nizhiming/app-insight/
+ExecStart=/go/src/git.zingfront.cn/nizhiming/app-insight/server -d /go/src/git.zingfront.cn/nizhiming/app-insight/insight.config.yaml -c /go/src/git.zingfront.cn/nizhiming/app-insight/config.yaml
+Restart=on-failure
+RestartSec=30s
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
