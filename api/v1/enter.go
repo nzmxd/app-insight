@@ -1,9 +1,9 @@
 package v1
 
 import (
-	"app-insight/api/v1/adslot"
-	"app-insight/api/v1/analysis"
-	"app-insight/api/v1/download"
+	"github.com/nzmxd/app-insight/api/v1/adslot"
+	"github.com/nzmxd/app-insight/api/v1/analysis"
+	"github.com/nzmxd/app-insight/api/v1/download"
 )
 
 var ApiGroupApp = new(ApiGroup)

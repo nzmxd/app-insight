@@ -1,11 +1,6 @@
 package download
 
 import (
-	"app-insight/core/downloader"
-	aGlobal "app-insight/global"
-	"app-insight/model/apprank"
-	"app-insight/model/download"
-	"app-insight/model/download/request"
 	"context"
 	"database/sql"
 	"encoding/json"
@@ -13,6 +8,11 @@ import (
 	"fmt"
 	"github.com/hibiken/asynq"
 	"github.com/minio/minio-go/v7"
+	"github.com/nzmxd/app-insight/core/downloader"
+	aGlobal "github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/model/apprank"
+	"github.com/nzmxd/app-insight/model/download"
+	"github.com/nzmxd/app-insight/model/download/request"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/utils"
 	"github.com/nzmxd/bserver/utils/upload"

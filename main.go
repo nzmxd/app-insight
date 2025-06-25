@@ -1,10 +1,10 @@
 package main
 
 import (
-	aCore "app-insight/core"
-	"app-insight/global"
-	"app-insight/initialize"
 	"flag"
+	aCore "github.com/nzmxd/app-insight/core"
+	"github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/initialize"
 	"github.com/nzmxd/bserver/core"
 )
 

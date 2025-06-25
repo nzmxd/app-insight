@@ -1,10 +1,10 @@
 package global
 
 import (
-	"app-insight/config"
-	"app-insight/core/analyzer"
-	"app-insight/core/downloader"
 	"github.com/hibiken/asynq"
+	"github.com/nzmxd/app-insight/config"
+	"github.com/nzmxd/app-insight/core/analyzer"
+	"github.com/nzmxd/app-insight/core/downloader"
 	"gorm.io/gorm"
 )
 

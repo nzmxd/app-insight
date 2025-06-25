@@ -1,6 +1,6 @@
 package analysis
 
-import "app-insight/service/download"
+import "github.com/nzmxd/app-insight/service/download"
 
 type ServiceGroup struct {
 	AppAnalysisTaskService

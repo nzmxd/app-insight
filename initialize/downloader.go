@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"app-insight/core/downloader"
-	"app-insight/global"
+	"github.com/nzmxd/app-insight/core/downloader"
+	"github.com/nzmxd/app-insight/global"
 )
 
 func InitDownloader() {

@@ -1,6 +1,6 @@
 package adslot
 
-import "app-insight/service"
+import "github.com/nzmxd/app-insight/service"
 
 type ApiGroup struct {
 	AdSlotPushApi

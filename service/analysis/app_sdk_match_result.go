@@ -1,8 +1,8 @@
 package analysis
 
 import (
-	aGloabl "app-insight/global"
-	"app-insight/model/analysis"
+	aGloabl "github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/model/analysis"
 )
 
 type AppSdkMatchResultService struct{}

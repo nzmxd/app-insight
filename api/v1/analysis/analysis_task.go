@@ -1,8 +1,8 @@
 package analysis
 
 import (
-	"app-insight/model/analysis/request"
 	"github.com/gin-gonic/gin"
+	"github.com/nzmxd/app-insight/model/analysis/request"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/model/common/response"
 	"go.uber.org/zap"

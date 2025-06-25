@@ -1,9 +1,9 @@
 package adslot
 
 import (
-	"app-insight/model/adslot"
-	"app-insight/model/adslot/request"
 	"github.com/gin-gonic/gin"
+	"github.com/nzmxd/app-insight/model/adslot"
+	"github.com/nzmxd/app-insight/model/adslot/request"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/model/common/response"
 	"go.uber.org/zap"

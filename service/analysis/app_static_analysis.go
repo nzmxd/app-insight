@@ -1,14 +1,14 @@
 package analysis
 
 import (
-	"app-insight/core/downloader"
-	aGlobal "app-insight/global"
-	"app-insight/model/analysis"
-	"app-insight/model/analysis/request"
-	"app-insight/model/apprank"
 	"context"
 	"encoding/json"
 	"github.com/hibiken/asynq"
+	"github.com/nzmxd/app-insight/core/downloader"
+	aGlobal "github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/model/analysis"
+	"github.com/nzmxd/app-insight/model/analysis/request"
+	"github.com/nzmxd/app-insight/model/apprank"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/utils"
 	"go.uber.org/zap"

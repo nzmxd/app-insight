@@ -1,9 +1,9 @@
 package analysis
 
 import (
-	"app-insight/model/analysis"
-	"app-insight/model/download"
 	"errors"
+	"github.com/nzmxd/app-insight/model/analysis"
+	"github.com/nzmxd/app-insight/model/download"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/utils"
 	"go.uber.org/zap"

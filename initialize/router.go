@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"app-insight/router"
+	"github.com/nzmxd/app-insight/router"
 	"github.com/nzmxd/bserver/initialize"
 )
 

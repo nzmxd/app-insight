@@ -1,9 +1,9 @@
 package router
 
 import (
-	"app-insight/router/adslot"
-	"app-insight/router/analysis"
-	"app-insight/router/download"
+	"github.com/nzmxd/app-insight/router/adslot"
+	"github.com/nzmxd/app-insight/router/analysis"
+	"github.com/nzmxd/app-insight/router/download"
 )
 
 var RouterGroupApp = new(RouterGroup)

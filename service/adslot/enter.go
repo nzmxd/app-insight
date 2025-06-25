@@ -1,8 +1,8 @@
 package adslot
 
 import (
-	"app-insight/model/adslot"
 	"errors"
+	"github.com/nzmxd/app-insight/model/adslot"
 )
 
 type ServiceGroup struct {

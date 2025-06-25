@@ -1,4 +1,4 @@
-module app-insight
+module github.com/nzmxd/app-insight
 
 go 1.24.4
 

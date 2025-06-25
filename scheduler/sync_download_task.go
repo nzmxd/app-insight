@@ -1,10 +1,10 @@
 package scheduler
 
 import (
-	aGlobal "app-insight/global"
-	"app-insight/model/apprank"
-	"app-insight/model/download"
 	"context"
+	aGlobal "github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/model/apprank"
+	"github.com/nzmxd/app-insight/model/download"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/utils/record"
 	"go.uber.org/zap"

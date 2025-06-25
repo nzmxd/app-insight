@@ -1,9 +1,9 @@
 package service
 
 import (
-	"app-insight/service/adslot"
-	"app-insight/service/analysis"
-	"app-insight/service/download"
+	"github.com/nzmxd/app-insight/service/adslot"
+	"github.com/nzmxd/app-insight/service/analysis"
+	"github.com/nzmxd/app-insight/service/download"
 )
 
 var ServiceGroupApp = new(ServiceGroup)

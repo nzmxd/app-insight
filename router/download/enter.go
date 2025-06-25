@@ -1,6 +1,6 @@
 package download
 
-import v1 "app-insight/api/v1"
+import v1 "github.com/nzmxd/app-insight/api/v1"
 
 type RouterGroup struct {
 	DownloadTaskRouter

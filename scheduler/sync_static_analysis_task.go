@@ -1,7 +1,7 @@
 package scheduler
 
 import (
-	"app-insight/model/analysis"
+	"github.com/nzmxd/app-insight/model/analysis"
 	"github.com/nzmxd/bserver/global"
 	"go.uber.org/zap"
 )

@@ -1,9 +1,9 @@
 package download
 
 import (
-	"app-insight/model/download"
-	"app-insight/model/download/request"
 	"github.com/gin-gonic/gin"
+	"github.com/nzmxd/app-insight/model/download"
+	"github.com/nzmxd/app-insight/model/download/request"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/model/common/response"
 	"go.uber.org/zap"

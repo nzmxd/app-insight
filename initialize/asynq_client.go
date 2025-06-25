@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	aGlobal "app-insight/global"
 	"github.com/hibiken/asynq"
+	aGlobal "github.com/nzmxd/app-insight/global"
 	gloabl "github.com/nzmxd/bserver/global"
 )
 

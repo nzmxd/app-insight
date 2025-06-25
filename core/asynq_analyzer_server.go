@@ -1,9 +1,9 @@
 package core
 
 import (
-	aGlobal "app-insight/global"
-	"app-insight/service"
 	"github.com/hibiken/asynq"
+	aGlobal "github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/service"
 	"github.com/nzmxd/bserver/global"
 	"go.uber.org/zap"
 )

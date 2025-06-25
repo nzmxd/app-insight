@@ -1,7 +1,7 @@
 package scheduler
 
 import (
-	"app-insight/service"
+	"github.com/nzmxd/app-insight/service"
 )
 
 var (

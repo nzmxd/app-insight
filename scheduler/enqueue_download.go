@@ -1,8 +1,8 @@
 package scheduler
 
 import (
-	"app-insight/model/download"
 	"fmt"
+	"github.com/nzmxd/app-insight/model/download"
 	"github.com/nzmxd/bserver/global"
 	"go.uber.org/zap"
 	"time"

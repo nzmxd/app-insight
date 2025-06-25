@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"app-insight/scheduler"
+	"github.com/nzmxd/app-insight/scheduler"
 	"github.com/nzmxd/bserver/core"
 	"github.com/nzmxd/bserver/global"
 	"github.com/robfig/cron/v3"

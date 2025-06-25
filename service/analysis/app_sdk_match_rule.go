@@ -1,11 +1,11 @@
 package analysis
 
 import (
-	"app-insight/core/analyzer"
-	aGloabl "app-insight/global"
-	"app-insight/model/analysis"
 	"encoding/json"
 	"fmt"
+	"github.com/nzmxd/app-insight/core/analyzer"
+	aGloabl "github.com/nzmxd/app-insight/global"
+	"github.com/nzmxd/app-insight/model/analysis"
 	"strings"
 )
 

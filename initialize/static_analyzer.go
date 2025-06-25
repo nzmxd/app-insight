@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"app-insight/core/analyzer"
-	"app-insight/global"
+	"github.com/nzmxd/app-insight/core/analyzer"
+	"github.com/nzmxd/app-insight/global"
 )
 
 func InitStaticAnalyzer() {
