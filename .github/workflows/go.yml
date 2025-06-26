@@ -42,7 +42,7 @@ jobs:
           env GOOS=$GOOS GOARCH=$GOARCH VERSION=$VERSION go build -o $output -v ./...
 
       - name: Upload executables
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-insight-${{ env.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}
           path: bin/
