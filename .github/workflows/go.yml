@@ -1,0 +1,48 @@
+name: Go Multi-Platform Build with Version Fallback
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: ['1.24']
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        arch: [amd64, arm64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get version from git tag or commit hash
+        id: get_version
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 2>/dev/null || git rev-parse --short HEAD)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Build executable
+        run: |
+          echo "Building for OS=${{ matrix.os }} ARCH=${{ matrix.arch }} VERSION=$VERSION"
+          ext=""
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            ext=".exe"
+          fi
+          GOOS=$([[ "${{ matrix.os }}" == "ubuntu-latest" ]] && echo "linux" || ([[ "${{ matrix.os }}" == "windows-latest" ]] && echo "windows" || echo "darwin"))
+          GOARCH=${{ matrix.arch }}
+          output="bin/myapp-${VERSION}-${GOOS}-${GOARCH}${ext}"
+          env GOOS=$GOOS GOARCH=$GOARCH VERSION=$VERSION go build -o $output -v ./...
+
+      - name: Upload executables
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-insight-${{ env.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}
+          path: bin/
