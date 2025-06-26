@@ -18,6 +18,7 @@ import (
 	"github.com/nzmxd/bserver/utils/upload"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"math/rand"
 	"os"
 	"strconv"
 	"strings"
@@ -316,9 +317,18 @@ func (d *DownloadTaskService) ProcessTask(ctx context.Context, t *asynq.Task) er
 	}
 
 	// Step 6: 下载文件
+
+	// 配置代理链接
+	var proxyUrl string
+	proxyList := aGlobal.Config.Downloader.BackProxies
+	if retryCount > 0 && proxyList != nil && len(proxyList) > 0 {
+		proxyUrl = proxyList[rand.Intn(len(proxyList))]
+	} else {
+		proxyUrl = aGlobal.Config.Downloader.Proxy
+	}
 	var filePath string
 	if appDetail.DownloadURL != "" {
-		filePath, err = downloader.DownloadFile(appDetail.DownloadURL, aGlobal.Config.Downloader.SavePath, aGlobal.Config.Downloader.Proxy, aGlobal.Config.Downloader.Timeout)
+		filePath, err = downloader.DownloadFile(appDetail.DownloadURL, aGlobal.Config.Downloader.SavePath, proxyUrl, aGlobal.Config.Downloader.Timeout)
 	} else {
 		filePath, err = aGlobal.Downloader.Download(*downloadTask.AppID, "", aGlobal.Config.Downloader.SavePath)
 	}
@@ -333,6 +343,7 @@ func (d *DownloadTaskService) ProcessTask(ctx context.Context, t *asynq.Task) er
 
 	if !strings.HasSuffix(filePath, "APK") {
 		status := download.StatusRetrying
+		_ = os.Remove(filePath)
 		return d.setTaskError(&downloadTask, status, fmt.Errorf("download failed: %w", errors.New("文件后缀检查失败")), false)
 	}
 

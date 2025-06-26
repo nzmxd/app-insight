@@ -1,7 +1,7 @@
 # 下载参数配置
 downloader:
   proxy: http://192.168.5.44:7897 # 下載代理
-  back-proxies: [ "http://192.168.5.44:12334" ] # 备用下载代理
+  back-proxies: [ "http://192.168.5.44:12334" ] # 备用下载代理列表
   worker: 3 # 最大的同时下载任务数
   source: apkpure # 下載來源 目前只有apkpure可选
   timeout: 600 # 下载超时时间 单位s
