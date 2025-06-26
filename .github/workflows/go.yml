@@ -38,8 +38,10 @@ jobs:
           fi
           GOOS=$([[ "${{ matrix.os }}" == "ubuntu-latest" ]] && echo "linux" || ([[ "${{ matrix.os }}" == "windows-latest" ]] && echo "windows" || echo "darwin"))
           GOARCH=${{ matrix.arch }}
-          output="bin/myapp-${VERSION}-${GOOS}-${GOARCH}${ext}"
-          env GOOS=$GOOS GOARCH=$GOARCH VERSION=$VERSION go build -o $output -v ./...
+          output="bin/app-insight-${VERSION}-${GOOS}-${GOARCH}${ext}"
+
+          mkdir -p bin
+          env GOOS=$GOOS GOARCH=$GOARCH VERSION=$VERSION go build -o $output -v .
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
