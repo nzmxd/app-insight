@@ -1,12 +1,16 @@
 package analysis
 
 import (
+	"context"
 	"errors"
+	"github.com/minio/minio-go/v7"
 	"github.com/nzmxd/app-insight/model/analysis"
 	"github.com/nzmxd/app-insight/model/download"
 	"github.com/nzmxd/bserver/global"
 	"github.com/nzmxd/bserver/utils"
+	"github.com/nzmxd/bserver/utils/upload"
 	"go.uber.org/zap"
+	"strings"
 	"time"
 )
 
@@ -97,7 +101,25 @@ func (a *AppAnalysisTaskService) GetAnalysisTaskFormDownloadTask(limit int) (tas
 			FileAnalysisStatus:    utils.Ptr(analysis.StatusPending),
 			FileAnalysisStartedAt: &now,
 		}
-		analysisTasks = append(analysisTasks, analysisTask)
+
+		if dt.FilePath != nil && *dt.FilePath != "" {
+			// 去掉前缀获取 MinIO 的 object key
+			baseUrl := global.CONFIG.Minio.BucketUrl
+			if strings.HasPrefix(*dt.FilePath, baseUrl) {
+				objectKey := strings.TrimPrefix(*dt.FilePath, baseUrl)
+
+				// 校验文件是否存在
+				exists, statErr := upload.MinioClient.Client.StatObject(
+					context.Background(),
+					global.CONFIG.Minio.BucketName,
+					strings.TrimPrefix(objectKey, "/"),
+					minio.StatObjectOptions{},
+				)
+				if statErr == nil && exists.Size > 0 {
+					analysisTasks = append(analysisTasks, analysisTask)
+				}
+			}
+		}
 	}
 
 	// 插入新任务
