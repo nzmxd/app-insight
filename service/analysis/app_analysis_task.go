@@ -77,7 +77,7 @@ func (a *AppAnalysisTaskService) GetAnalysisTaskFormDownloadTask(limit int) (tas
 		Select("d.*").
 		Joins(`LEFT JOIN app_analysis_task AS a 
 		       ON d.app_id = a.app_id AND d.version_code = a.version_code`).
-		Where("d.status = ?", analysis.StatusSuccess).
+		Where("d.status = ?", download.StatusSuccess).
 		Where("a.app_id IS NULL").
 		//Where("d.created_at >= ?", today).
 		Order("d.created_at DESC").
@@ -88,6 +88,7 @@ func (a *AppAnalysisTaskService) GetAnalysisTaskFormDownloadTask(limit int) (tas
 	}
 
 	// 转换为 AppAnalysisTask 列表
+	var toDeleteTaskIDs []int64
 	var analysisTasks []analysis.AppAnalysisTask
 	now := time.Now()
 
@@ -101,7 +102,7 @@ func (a *AppAnalysisTaskService) GetAnalysisTaskFormDownloadTask(limit int) (tas
 			FileAnalysisStatus:    utils.Ptr(analysis.StatusPending),
 			FileAnalysisStartedAt: &now,
 		}
-
+		fileExists := false
 		if dt.FilePath != nil && *dt.FilePath != "" {
 			// 去掉前缀获取 MinIO 的 object key
 			baseUrl := global.CONFIG.Minio.BucketUrl
@@ -116,16 +117,27 @@ func (a *AppAnalysisTaskService) GetAnalysisTaskFormDownloadTask(limit int) (tas
 					minio.StatObjectOptions{},
 				)
 				if statErr == nil && exists.Size > 0 {
+					fileExists = true
 					analysisTasks = append(analysisTasks, analysisTask)
 				}
 			}
 		}
+		if !fileExists {
+			toDeleteTaskIDs = append(toDeleteTaskIDs, dt.ID)
+		}
 	}
 
-	// 插入新任务
 	if len(analysisTasks) > 0 {
 		err = global.DB.Create(&analysisTasks).Error
 		if err != nil {
+			return nil, err
+		}
+	}
+
+	if len(toDeleteTaskIDs) > 0 {
+		if err = global.DB.Model(&download.AppDownloadTask{}).
+			Where("id IN ?", toDeleteTaskIDs).
+			Update("status", download.StatusDeleted).Error; err != nil {
 			return nil, err
 		}
 	}

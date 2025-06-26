@@ -9,6 +9,7 @@ const (
 	StatusSuccess            // 3: 下载成功
 	StatusFailed             // 4: 下载失败
 	StatusRetrying           // 5: 正在重试
+	StatusDeleted            // 6: 已删除
 )
 
 type AppDownloadTask struct {
