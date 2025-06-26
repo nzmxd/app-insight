@@ -1,10 +1,11 @@
 # 下载参数配置
 downloader:
   proxy: http://192.168.5.44:7897 # 下載代理
-  worker: 5 # 最大的同时下载任务数
+  back-proxies: [ "http://192.168.5.44:12334" ] # 备用下载代理
+  worker: 3 # 最大的同时下载任务数
   source: apkpure # 下載來源 目前只有apkpure可选
-  timeout: 500 # 下载超时时间 单位s
-  max-retry: 1  # 下载最大重试次数
+  timeout: 600 # 下载超时时间 单位s
+  max-retry: 3  # 下载最大重试次数
   save-path: ./download # 本地存储路径
   limit-size: 200 # 文件大小限制 单位M
   upload-enabled: true # 是否上传到对象存储，目前只支持上传到minio，上传后本地文件会被删除
