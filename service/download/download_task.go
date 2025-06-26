@@ -404,7 +404,7 @@ func (d *DownloadTaskService) GetDownloadUrl(req request.DownloadUrlSearch) (str
 	var task download.AppDownloadTask
 
 	// 查找符合条件的记录
-	db := global.DB.Where("app_id = ? AND version_code = ?", *req.AppID)
+	db := global.DB.Where("app_id = ?", *req.AppID)
 	if req.VersionCode != nil {
 		db = db.Where("version_code = ?", *req.VersionCode)
 	}
