@@ -10,7 +10,7 @@ import (
 
 func main() {
 	var appConfig string
-	flag.StringVar(&appConfig, "d", "", "app config file")
+	flag.StringVar(&appConfig, "d", "insight.config.yaml", "app config file")
 	initialize.InitRouters()
 	core.InitializeSystem()
 	core.NViper(appConfig, &global.Config)
