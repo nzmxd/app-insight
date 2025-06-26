@@ -1,10 +1,9 @@
-name: Go Multi-Platform Build with Version Fallback
+name: Go Multi-Platform Build and Release
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags:
+      - 'v*'  # 只有打标签时触发
 
 jobs:
   build:
@@ -18,12 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get version from git tag or commit hash
-        id: get_version
-        run: |
-          VERSION=$(git describe --tags --abbrev=0 2>/dev/null || git rev-parse --short HEAD)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -31,20 +24,53 @@ jobs:
 
       - name: Build executable
         run: |
-          echo "Building for OS=${{ matrix.os }} ARCH=${{ matrix.arch }} VERSION=$VERSION"
           ext=""
           if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
             ext=".exe"
           fi
           GOOS=$([[ "${{ matrix.os }}" == "ubuntu-latest" ]] && echo "linux" || ([[ "${{ matrix.os }}" == "windows-latest" ]] && echo "windows" || echo "darwin"))
           GOARCH=${{ matrix.arch }}
-          output="bin/app-insight-${VERSION}-${GOOS}-${GOARCH}${ext}"
+          output="bin/app-insight-${GOOS}-${GOARCH}${ext}"
 
           mkdir -p bin
-          env GOOS=$GOOS GOARCH=$GOARCH VERSION=$VERSION go build -o $output -v .
+          env GOOS=$GOOS GOARCH=$GOARCH go build -o $output -v .
 
       - name: Upload executables
         uses: actions/upload-artifact@v4
         with:
-          name: app-insight-${{ env.VERSION }}-${{ matrix.os }}-${{ matrix.arch }}
+          name: app-insight-${{ matrix.os }}-${{ matrix.arch }}
           path: bin/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: release-artifacts
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release-artifacts/bin/app-insight-linux-amd64
+          asset_name: app-insight-linux-amd64
+          asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 你可以多次调用上传多个不同平台的文件，或写脚本批量上传
